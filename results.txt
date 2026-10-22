@@ -1,0 +1,29 @@
+﻿
+======== 1. NEURAL NETWORK (backpropagation): sensors -> severity ========
+Train MSE 0.00159 | Test MAE 0.291 (scale 0-10) | Test R^2 0.964
+
+======== 2. HEURISTIC SEARCH: A* vs Dijkstra ========
+Nodes expanded over 36 routes: A* 3743 vs Dijkstra 6862 (45% fewer), identical optimal costs
+
+======== 3. FUZZY LOGIC (Mamdani): severity + population + accessibility -> priority ========
+Site Cell      Severity   Pop  Access  Priority
+S1   (18, 18)      6.81   475    0.20      57.0
+S2   (8, 19)       6.01   925    0.34      80.2
+S3   (3, 8)        3.00   328    0.65      45.0
+S4   (17, 2)       3.09   731    0.49      51.7
+S5   (12, 6)       4.69   769    0.56      66.8
+S6   (2, 15)       3.62   940    0.44      56.7
+S7   (15, 1)       2.58   653    0.54      41.6
+S8   (15, 13)      5.01   241    0.44      37.2
+
+======== 4. SOFT COMPUTING OPTIMIZATION: Genetic Algorithm vs Ant Colony (ACO) ========
+GA cost: 34813 | ACO cost: 34813 | Brute-force optimum: 34813 | Nearest-neighbour: 35577
+GA gap to optimum: 0.00% | ACO gap to optimum: 0.00%
+GA Route order : Base -> S7 -> S4 -> S5 -> S8 -> S1 -> S2 -> S6 -> S3
+ACO Route order: Base -> S7 -> S4 -> S5 -> S8 -> S1 -> S2 -> S6 -> S3
+
+======== 5. ADVERSARIAL SEARCH: minimax + alpha-beta vs disaster that blocks roads ========
+Same decision value (-35.0): minimax 33 nodes vs alpha-beta 21 nodes
+Mission travel cost under attack: naive A* replanning 210 | minimax rescuer 198 (+5.7%)  [1s]
+
+Saved sahayak_dashboard.png
