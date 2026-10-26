@@ -1,84 +1,212 @@
-# SAHAYAK 2.0: Hybrid AI & Soft Computing Disaster-Response Planner
-**Course:** Artificial Intelligence & Soft Computing (AISC) | **Topic:** Algorithmic Implementation of AI Approaches
-All six core techniques are implemented **from scratch** (NumPy only, zero ML/black-box libraries) and chained into an autonomous decision-making pipeline.
+# 🌊 SAHAYAK 2.0: Hybrid AI & Soft Computing Disaster-Response Planner
 
-## Problem
-After a severe flood event, an autonomous rescue vehicle starts at a base headquarters and must navigate a damaged, non-uniform road network to evacuate affected civilian sites.
-- **Which sites first?** Handled by Neural Net Severity prediction + Mamdani Fuzzy Logic prioritization.
-- **Which roads?** Handled by admissible Heuristic A* Search.
-- **Optimal visiting order?** Soft Computing combinatorial optimization: Evolutionary Genetic Algorithm (GA) vs. Swarm Ant Colony Optimization (ACO).
-- **What if roads keep collapsing dynamically?** Minimax adversarial search with Alpha-Beta pruning + real-time dynamic A* replanning.
+**Course:** Artificial Intelligence & Soft Computing (AISC)  
+**Topic:** Algorithmic Implementation of AI Approaches
 
-## Architecture & Techniques
-| Stage | Technique | File | Role & Formulation |
-|---|---|---|---|
-| 1 | Neural network (Backpropagation) | `neural.py` | 4-8-1 MLP predicts site flood severity (0–10) from rainfall, water level, structural density, elevation. |
-| 2 | Heuristic search (A*) | `search.py` | Optimal pathfinding on weighted grid; compared directly against Dijkstra ($h=0$). |
-| 3 | Fuzzy logic (Mamdani) | `fuzzy.py` | Multi-criteria reasoning: Severity + Population + Accessibility $\to$ Criticality Priority (0–100). |
-| 4a | Genetic Algorithm (GA) | `genetic.py` | Permutation chromosome, Order Crossover (OX), Inversion Mutation, Tournament Selection ($k=3$), Elitism. |
-| 4b | Ant Colony Optimization (ACO) | `aco.py` | Swarm intelligence: Pheromone evaporation ($\rho$), desirability heuristic ($\eta = \text{priority}/D$), and elitist reinforcement. |
-| 5 | Adversarial search ($\alpha$-$\beta$) | `adversarial.py` | Rescuer (MAX) vs Road-Collapsing Disaster (MIN) with tabu list to prevent horizon dithering. |
-| 6 | Interactive Visual Simulator | `simulator.html` | Real-time browser command center with live A* replanning and click-to-collapse obstacle testing. |
+**SAHAYAK 2.0** is an AI-powered disaster-response planning system that combines six AI and soft computing techniques into an autonomous decision-making pipeline. The core algorithms are implemented from scratch using NumPy, without ready-made machine-learning or optimization libraries.
 
-**Data Pipeline:**
-$$\text{Sensors} \xrightarrow{\text{MLP}} \text{Severity} \xrightarrow{\text{Mamdani Fuzzy}} \text{Priority} \xrightarrow{\text{A* Search}} D \text{ Matrix} \xrightarrow{\text{GA / ACO}} \text{Tour Order} \xrightarrow{\text{Minimax / Replanning}} \text{Execution}$$
+## 🌐 Live Website
+
+**[🚀 Launch SAHAYAK 2.0 — Live Web Simulator](https://amruta09-eng.github.io/Sahayak/)**
+
+Explore the interactive disaster-response simulator directly in your browser.
 
 ---
 
-## How to Run
+## 📌 Problem Statement
 
-### 1. Terminal Run & Matplotlib Dashboard:
+After a severe flood, an autonomous rescue vehicle must navigate a damaged, non-uniform road network to evacuate people from affected locations.
+
+The system addresses four key challenges:
+
+- **Which sites should be rescued first?** Neural Network severity prediction + Mamdani Fuzzy Logic prioritization.
+- **Which roads should the vehicle take?** A* heuristic search on a weighted grid.
+- **What is the optimal visiting order?** Genetic Algorithm (GA) vs. Ant Colony Optimization (ACO).
+- **What if roads collapse dynamically?** Minimax adversarial search with Alpha-Beta pruning + dynamic A* replanning.
+
+## 🏗️ Architecture & Techniques
+
+| Stage | Technique | File | Role |
+|---|---|---|---|
+| 1 | Neural Network (Backpropagation) | `neural.py` | A 4-8-1 MLP predicts flood severity (0–10) from rainfall, water level, structural density, and elevation. |
+| 2 | A* Heuristic Search | `search.py` | Finds optimal paths on a weighted grid and compares performance with Dijkstra's algorithm (`h = 0`). |
+| 3 | Mamdani Fuzzy Logic | `fuzzy.py` | Combines severity, population, and accessibility to calculate criticality priority (0–100). |
+| 4a | Genetic Algorithm (GA) | `genetic.py` | Optimizes visiting order using permutation chromosomes, Order Crossover (OX), inversion mutation, tournament selection (`k = 3`), and elitism. |
+| 4b | Ant Colony Optimization (ACO) | `aco.py` | Optimizes visiting order using pheromone evaporation, heuristic visibility, and elitist reinforcement. |
+| 5 | Minimax with Alpha-Beta Pruning | `adversarial.py` | Models the rescuer (MAX) against a road-collapsing disaster (MIN), using a tabu list to prevent horizon dithering. |
+| 6 | Interactive Visual Simulator | `simulator.html` | Provides a browser-based command center with route visualization, dynamic A* replanning, and click-to-collapse road testing. |
+
+### 🔄 Data Pipeline
+
+```text
+Sensors
+   ↓
+Neural Network → Flood Severity
+   ↓
+Mamdani Fuzzy Logic → Rescue Priority
+   ↓
+A* Search → Distance Matrix
+   ↓
+Genetic Algorithm / Ant Colony Optimization
+   ↓
+Optimized Rescue Tour
+   ↓
+Minimax + Dynamic A* Replanning
+   ↓
+Rescue Execution
+```
+
+---
+
+## 🚀 How to Access and Run
+
+### 1. Live Website (Recommended)
+
+Open the deployed website:
+
+**[https://amruta09-eng.github.io/Sahayak/](https://amruta09-eng.github.io/Sahayak/)**
+
+No local Python installation is required to access the deployed website.
+
+### 2. Run the Python Algorithms and Dashboard
+
+Ensure Python and the required dependencies, including NumPy and Matplotlib, are installed.
+
+Run the following command from the project directory:
+
 ```bash
 python main.py
 ```
-- Prints terminal benchmark for all algorithms.
-- Updates and saves `sahayak_dashboard.png` (2x3 panel including GA vs ACO convergence curves).
 
-### 2. Interactive Web Simulator:
-Double-click `simulator.html` in your file explorer or open it in any browser:
+This runs the algorithmic benchmarks and generates or updates `sahayak_dashboard.png`, a 2×3 visualization panel that includes GA and ACO convergence curves.
+
+### 3. Run the Local Interactive Simulator
+
+Open `simulator.html` in a web browser.
+
+On Windows, you can also run:
+
 ```bash
-# Or open directly in browser:
 start simulator.html
 ```
-- **Watch the rescue vehicle** move cell-by-cell along the optimal route.
-- **Click any cell on the grid** to collapse a road dynamically.
-- **Watch real-time dynamic A\* replanning** recalculate the detour automatically with collision detection.
-- **Switch between routing strategies** (GA, ACO, Nearest-Neighbor, Priority-Only).
+
+**Simulator features:**
+
+- Watch the rescue vehicle move along the planned route.
+- Click a grid cell to simulate a road collapse.
+- Observe dynamic A* replanning to find an alternative route when one exists.
+- Switch between routing strategies: GA, ACO, Nearest-Neighbor, and Priority-Only.
 
 ---
 
-## Experimental Benchmark Results (Seed 7, 20x20 City Grid, 8 Sites)
-- **Neural Network:** Test $R^2 = 0.964$, $\text{MAE} = 0.291$ (scale 0–10).
-- **A\* vs Dijkstra:** A* expanded **3,743 nodes** vs Dijkstra's **6,862 nodes** (**45.5% reduction** in search space) with 100% identical optimal path costs.
-- **Soft Computing Optimization (GA vs ACO vs Baselines):**
-  - **Brute-Force Global Optimum (8! = 40,320 permutations):** Cost = **34,813**
-  - **Genetic Algorithm (GA):** Cost = **34,813** (**0.00% gap** to global optimum)
-  - **Ant Colony Optimization (ACO):** Cost = **34,813** (**0.00% gap** to global optimum)
-  - **Nearest-Neighbour Greedy:** Cost = **35,577** (GA/ACO are 2.1% better)
-  - **Priority-Only Ordering:** Cost = **62,816** (GA/ACO are **44.6% better** by avoiding spatial zigzagging)
-- **Adversarial Resilience:** Under road destruction, minimax with alpha-beta achieved a mission cost of **198** vs **210** for naive replanning (**+5.7% travel efficiency saved**).
+## 📊 Experimental Benchmark Results
+
+**Experimental setup:** Seed 7, 20×20 city grid, 8 rescue sites.
+
+### Neural Network Performance
+
+- Test \(R^2 = 0.964\)
+- Mean Absolute Error (MAE) = 0.291 on the 0–10 severity scale.
+
+### A* vs. Dijkstra
+
+| Metric | A* Search | Dijkstra |
+|---|---:|---:|
+| Nodes expanded | 3,743 | 6,862 |
+| Optimal path cost | Identical | Identical |
+
+A* expanded approximately **45.5% fewer nodes** while achieving the same optimal path costs in the reported experiment.
+
+### Soft Computing Optimization
+
+The visiting-order algorithms were compared against brute-force search and simpler baselines.
+
+| Algorithm | Mission Cost | Result |
+|---|---:|---|
+| Brute-force global optimum | 34,813 | Reference optimum |
+| Genetic Algorithm (GA) | 34,813 | 0.00% optimality gap |
+| Ant Colony Optimization (ACO) | 34,813 | 0.00% optimality gap |
+| Nearest-Neighbor Greedy | 35,577 | Slightly higher cost |
+| Priority-Only Ordering | 62,816 | Significantly higher cost |
+
+Brute-force search evaluates all \(8! = 40,320\) possible visiting orders.
+
+In this experiment, GA and ACO matched the reported global optimum and improved the mission cost by approximately **44.6% compared with Priority-Only Ordering**.
+
+### Adversarial Resilience
+
+| Strategy | Mission Cost |
+|---|---:|
+| Minimax with Alpha-Beta Pruning | 198 |
+| Naive replanning | 210 |
+
+The adversarial strategy achieved a lower reported mission cost under the simulated road-destruction conditions.
+
+*Note: These figures describe the stated experimental setup and should be reproducible from the project code before being presented as verified results. Matching the optimum for eight locations does not guarantee that GA or ACO will always find a global optimum.*
 
 ---
 
-## Viva & Examination Cheat-Sheet
+## 🎓 Viva & Examination Cheat-Sheet
 
-1. **Why use both GA and ACO? What is the difference?**
-   - *GA (Evolutionary Computation):* Operates on a population of complete candidate solutions using genetic operators (selection, crossover, mutation). Crossover exchanges sub-tours between parents.
-   - *ACO (Swarm Intelligence):* Models constructive agents. Each ant builds a tour step-by-step using local pheromone trails ($\tau$) and heuristic visibility ($\eta$). Pheromone reinforces high-quality edges over iterations.
-   - *Key takeaway:* Both converged to the identical global optimum ($34,813$), confirming metaheuristic robustness on NP-hard permutation spaces.
+### 1. Why use both GA and ACO?
 
-2. **Why is Manhattan Distance admissible for A\* on a grid?**
-   - An admissible heuristic never overestimates the true remaining cost ($h(n) \le h^*(n)$). Because our minimum terrain cell cost is $1.0$, the Manhattan distance $\Delta x + \Delta y$ is the theoretical lower bound of grid travel distance. Thus, $A^*$ is mathematically guaranteed to return the optimal path.
+- **Genetic Algorithm:** Evolves a population of complete candidate solutions using selection, crossover, and mutation.
+- **Ant Colony Optimization:** Builds candidate routes using pheromone trails and heuristic visibility. Better routes receive reinforcement.
+- **Why compare them?** They use different search strategies to solve the same combinatorial optimization problem.
 
-3. **How does Mamdani Fuzzy Inference work in SAHAYAK?**
-   - Inputs: Predicted Severity ($0-10$), Population ($0-1$), Accessibility ($0-1$).
-   - Fuzzification via trapezoidal membership functions (`trap()`).
-   - Rule evaluation uses Zadeh min-operator for AND clauses across 13 domain rules.
-   - Aggregation uses max-operator to merge rule consequences.
-   - Defuzzification calculates the centroid (center of gravity) across the output domain ($0-100$).
+Both algorithms reportedly reached the same global optimum in the eight-site experiment.
 
-4. **Why not just sort sites by Priority?**
-   - Sorting purely by priority results in a cost of $62,816$ because the rescuer zigzags across opposite ends of the city. GA/ACO balance urgency and travel distance, cutting mission latency down to $34,813$ (**44.6% improvement**).
+### 2. Why is Manhattan Distance admissible for A*?
 
-5. **How does Alpha-Beta Pruning improve Minimax?**
-   - Alpha ($\alpha$) is the minimum score the MAX player is guaranteed; Beta ($\beta$) is the maximum score the MIN player is guaranteed. When $\beta \le \alpha$, further child nodes along that branch cannot influence the final root decision and are pruned, reducing search complexity from $O(b^d)$ towards $O(b^{d/2})$ with proper move ordering.
+An admissible heuristic never overestimates the true remaining cost:
+
+\[
+h(n) \leq h^*(n)
+\]
+
+For a four-directional grid with a minimum terrain movement cost of 1.0, Manhattan distance provides a lower bound:
+
+\[
+h(n)=|x_n-x_g|+|y_n-y_g|
+\]
+
+Provided the movement model and cost assumptions hold, this heuristic allows A* to find an optimal path.
+
+### 3. How does Mamdani Fuzzy Inference work?
+
+**Inputs:** Predicted severity (0–10), population (0–1), and accessibility (0–1).
+
+The process consists of:
+
+1. **Fuzzification:** Converts numerical inputs into fuzzy categories using membership functions.
+2. **Rule evaluation:** Applies 13 domain rules using the minimum operator for AND conditions.
+3. **Aggregation:** Combines rule outputs using the maximum operator.
+4. **Defuzzification:** Uses the centroid method to calculate a final priority score between 0 and 100.
+
+### 4. Why not simply sort sites by priority?
+
+Priority-only sorting considers urgency but ignores the travel cost between locations. It may cause the vehicle to zigzag across the city.
+
+GA and ACO balance the overall route cost when determining the visiting order, reducing unnecessary travel in the reported experiment.
+
+### 5. How does Alpha-Beta Pruning improve Minimax?
+
+- **Alpha (α):** The best score MAX can guarantee so far.
+- **Beta (β):** The best score MIN can guarantee so far.
+- **Pruning condition:** When \(\alpha \geq \beta\), the remaining branch can be skipped because it cannot change the decision.
+
+Minimax has a worst-case time complexity of \(O(b^d)\). With effective move ordering, alpha-beta pruning can reduce the number of explored nodes substantially, with best-case time complexity of \(O(b^{d/2})\).
+
+---
+
+## 💡 Key Takeaway
+
+**SAHAYAK 2.0 combines prediction, fuzzy decision-making, heuristic pathfinding, evolutionary optimization, swarm intelligence, and adversarial planning into a unified disaster-response system.**
+
+The project demonstrates how different AI approaches can work together to prioritize rescue sites, optimize visiting order, and respond to changing road conditions.
+
+### 🔗 Project Links
+
+- **Live Website:** https://amruta09-eng.github.io/Sahayak/
+- **GitHub Repository:** [Sahayak](https://github.com/amruta09-eng/Sahayak)
+
